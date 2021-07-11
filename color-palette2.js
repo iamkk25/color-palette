@@ -52,7 +52,7 @@ function toggleDisplay() {
     // APPENDING CONTENT TO THE VIRTUAL DOM
     fragment.append(exportDiv);
 
-    if (document.body.lastChild.className !== 'export-box'){
+    if (!document.body.contains(exportDiv)){
         // VIRTUAL DOM TO ACTUAL DOM
         document.body.append(fragment);
         getColors(exportDiv)
