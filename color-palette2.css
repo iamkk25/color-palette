@@ -1,7 +1,7 @@
 :root {
     --padding-1: 1rem;
     --h1: 1.6rem;
-    --nav-height:5rem;
+    --nav-height: 5rem;
 }
 
 * {
@@ -67,7 +67,7 @@ body {
     width: 45%;
 }
 
-button{
+button {
     cursor: pointer;
 }
 
@@ -169,28 +169,28 @@ button{
     padding: 0.5rem var(--padding-1);
 }
 
-.variable-box__container {
+.variable__box-container {
     background-color: rgb(241, 241, 241);
     overflow: auto;
     height: 15rem;
     padding: 0.5rem var(--padding-1);
 }
 
-.all-colors{
+.all-colors {
     margin-bottom: 1rem;
 }
 
-.comment{
+.comment {
     color: rgb(160, 160, 160);
     margin-bottom: 0.5rem;
 }
 
-.color-name{
+.color-name {
     color: #cf3636;
     white-space: pre;
 }
 
-.color-value{
+.color-value {
     color: #0000d4;
 }
 
@@ -206,10 +206,10 @@ button{
 }
 
 @keyframes fade-down {
-    from{
+    from {
         opacity: 0;
     }
-    to{
+    to {
         opacity: 1;
     }
 }
@@ -228,7 +228,7 @@ button{
         height: 2.5rem;
         font-size: 1rem;
     }
-/* 
+    /* 
     .container {
         display: block;
     } */
@@ -255,17 +255,17 @@ button{
         width: 60%;
     }
 
-    .box-1{
-        padding:  var(--padding-1) var(--padding-1) 0.5rem;
+    .box-1 {
+        padding: var(--padding-1) var(--padding-1) 0.5rem;
     }
 
-    .close{
+    .close {
         font-size: 1.7rem;
     }
 }
 
-@media screen and (min-width:1024px){
-    .btns{
+@media screen and (min-width: 1024px) {
+    .btns {
         width: 20%;
     }
 
@@ -273,8 +273,8 @@ button{
         --padding-1: 1.2rem;
         max-width: 45%;
     }
-    
-    .close{
+
+    .close {
         font-size: 1.9rem;
     }
 }

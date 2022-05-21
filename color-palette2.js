@@ -3,16 +3,15 @@ const exportBtn = document.querySelector('.export');
 // const exportSection = document.querySelector('.export-box');
 const backdrop = document.querySelector('.backdrop')
 const colorPalettes = document.querySelectorAll('.color-palette');
-const colorCoords = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
 let colors = [];
 
 function generator() {
-    let hexArr = [];
+    let hexValue = '';
+    const radix = 16
     for (let i = 0; i < 6; i++) {
-        let newRandom = Math.floor(Math.random() * colorCoords.length)
-        hexArr.push(colorCoords[newRandom])
+        let newRandom = Math.floor(Math.random() * radix)
+        hexValue += (newRandom).toString(radix);
     }
-    let hexValue = hexArr.join('');
     return [hexValue, `#${hexValue}`];
 }
 
@@ -29,9 +28,6 @@ function colorGenerator() {
 function toggleDisplay() {
     backdrop.classList.add('backdrop-visible');
 
-    //CREATING VIRTUAL DOM
-    const fragment = document.createDocumentFragment();
-
     const exportDiv = document.createElement('div');
     exportDiv.className = 'export-box';
     exportDiv.innerHTML = `
@@ -41,22 +37,15 @@ function toggleDisplay() {
         </div>
         <div class="box-2">
         <div class="variable-box">
-            <div class="variable-box__container"></div>
+            <div class="variable__box-container"></div>
         </div>
         <div class="btn-box">
-            <button class="btn copy-url">Copy URL</button>
+            <button class="btn copy-text">Copy</button>
             <button class="btn download">Download</button>
         </div>
     `;
-
-    // APPENDING CONTENT TO THE VIRTUAL DOM
-    fragment.append(exportDiv);
-
-    if (!document.body.contains(exportDiv)){
-        // VIRTUAL DOM TO ACTUAL DOM
-        document.body.append(fragment);
-        getColors(exportDiv)
-    } 
+    document.body.append(exportDiv);
+    getColors(exportDiv);
 
     function closeModal() {
         backdrop.classList.remove('backdrop-visible');
@@ -67,28 +56,27 @@ function toggleDisplay() {
 
     backdrop.addEventListener('click', closeModal);
     closeBtn.addEventListener('click', closeModal);
+
+    const copyBtn = document.querySelector('.copy-text');
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(document.querySelector('.variable__box-container').textContent).then(() => console.log('COPIED'));
+    })
 }
 
 
 
-function getColors(exportDiv,wantRGBValue = true) {
-    const variableContainer = exportDiv.querySelector('.variable-box__container');
+function getColors(exportDiv, wantRGBValue = true) {
+    const variableContainer = exportDiv.querySelector('.variable__box-container');
+    console.log(variableContainer)
 
     let hexDiv = document.createElement('div');
     hexDiv.className = 'all-colors';
     hexDiv.insertAdjacentHTML('afterbegin', `<p class="comment">/* hex values */</p>`);
 
     colors.forEach((color, idx) => {
-        let p = document.createElement('p');
-        p.className = 'color-name';
-        p.textContent = `--color-${idx + 1}: `;
-
-        let span = document.createElement('span');
-        span.className = 'color-value';
-        span.textContent = `${color};`;
-
-        p.append(span);
-        hexDiv.append(p);
+        hexDiv.innerHTML += `
+            <p class="color-name">--color-${idx + 1}: <span class="color-value">${color};</span></p>
+        `;
     });
     variableContainer.append(hexDiv);
 
@@ -100,17 +88,9 @@ function getColors(exportDiv,wantRGBValue = true) {
         colorPalettes.forEach((colorPalette, idx) => {
             let id = colorPalette.getAttribute('style').lastIndexOf('rgb');
             let value = colorPalette.getAttribute('style').slice(id);
-
-            let p = document.createElement('p');
-            p.className = 'color-name';
-            p.textContent = `--color-${idx + 1}: `;
-
-            let span = document.createElement('span');
-            span.className = 'color-value';
-            span.textContent = value;
-
-            p.append(span);
-            rgbDiv.append(p);
+            rgbDiv.innerHTML += `
+            <p class="color-name">--color-${idx + 1}: <span class="color-value">${value}</span></p>
+        `;
         });
         variableContainer.append(rgbDiv);
     }
