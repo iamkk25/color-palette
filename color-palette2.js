@@ -67,7 +67,6 @@ function toggleDisplay() {
 
 function getColors(exportDiv, wantRGBValue = true) {
     const variableContainer = exportDiv.querySelector('.variable__box-container');
-    console.log(variableContainer)
 
     let hexDiv = document.createElement('div');
     hexDiv.className = 'all-colors';
